@@ -1,0 +1,8 @@
+<div class="card-container">
+    <h3>{{item.title}}</h3>
+    <p>{{item.workCategory}}</p>
+    <p>{{item.desc}}</p>
+    <strong>{{'Priority: ' + item.prio}}</strong>
+    <button class="btn btn-primary" (click)="app.edit(item)">Edit</button>
+    <button class="btn btn-primary">Delete</button>
+</div>
