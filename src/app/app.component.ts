@@ -8,30 +8,83 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
   title = 'todo-app';
-  todoTitle:any;
-  todoSelect:any;
-  todoDesc:any;
-  todoOpt1:any;
-  todoOpt2:any;
-  todoOpt3:any;
-  todoList:any =[];
-  saveTodoForm(values:NgForm):void{
-    // debugger;
-    var obj = values.value;
-    console.log(obj,'ooooo')
-this.todoList.push(obj);
-console.log(this.todoList,'ooooo')
-this.clearForm();
+  todoTitle: any;
+  todoSelect: any;
+  todoDesc: any;
+  todoOpt1: any;
+  todoOpt2: any;
+  todoOpt3: any;
+  todoList: any = [];
+  isEdit: boolean = false;
+  id: any;
+  ngOnInit() {
+    if (localStorage.getItem('list') == null) {
+      this.todoList = [];
+    } else {
+      let tempVar: any = localStorage.getItem('list');
+      this.todoList = JSON.parse(tempVar);
+    }
   }
-  clearForm(){
-  this.todoTitle='';
-  this.todoSelect='';
-  this.todoDesc='';
-  this.todoOpt1='';
-  this.todoOpt2='';
-  this.todoOpt3='';
+  saveTodoForm(values: NgForm, edit: boolean): void {
+
+    if (edit) {
+      console.log(values.value, 'editttttttttt')
+      this.todoList.map((ele: any, index: any) => {
+        if (ele.id == values.value.id) {
+          this.todoList[index].desc = values.value.desc
+          this.todoList[index].prio = values.value.prio
+          this.todoList[index].title = values.value.title
+          this.todoList[index].workCategory = values.value.workCategory
+        }
+      })
+      console.log(this.todoList, 'after Edit')
+      this.isEdit = false;
+      this.clearForm();
+    } else {
+      var obj = values.value;
+      obj.id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+      console.log(obj, 'ooooo')
+      this.todoList.push(obj);
+      console.log(this.todoList, 'ooooo')
+      this.clearForm();
+    }
+    localStorage.setItem('list', JSON.stringify(this.todoList))
   }
-  edit(item:any){
-    console.log(item,'itemmmmmm')
+  clearForm() {
+    this.todoTitle = '';
+    this.todoSelect = '';
+    this.todoDesc = '';
+    this.todoOpt1 = '';
+    this.todoOpt2 = '';
+    this.todoOpt3 = '';
+  }
+  edit(item: any) {
+    this.isEdit = true;
+    let selectedTask = this.todoList.filter((ele: any) => {
+
+      return ele.id == item.id;
+
+    })
+    this.id = selectedTask[0].id;
+    this.todoTitle = selectedTask[0].title;
+    this.todoSelect = selectedTask[0].workCategory;
+    this.todoDesc = selectedTask[0].desc;
+    this.todoOpt1 = selectedTask[0].prio == 'Low' ? selectedTask[0].prio : '';
+    this.todoOpt2 = selectedTask[0].prio == 'Medium' ? selectedTask[0].prio : '';
+    this.todoOpt3 = selectedTask[0].prio == 'High' ? selectedTask[0].prio : '';
+    console.log(selectedTask, 'itemmmmmm')
+
+  }
+  async delete(item: any) {
+    let tempArr: any = [];
+    console.log(item, 'itemmmmmm')
+    await Promise.all(this.todoList.map((ele: any) => {
+      if (ele.id != item.id) {
+        tempArr.push(ele);
+      }
+    }))
+    this.todoList = tempArr;
+    localStorage.setItem('list', JSON.stringify(this.todoList))
+    console.log(this.todoList, 'itemmmmmm')
   }
 }

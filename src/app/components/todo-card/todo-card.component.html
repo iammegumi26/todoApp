@@ -1,8 +1,15 @@
-<div class="card-container">
-    <h3>{{item.title}}</h3>
-    <p>{{item.workCategory}}</p>
-    <p>{{item.desc}}</p>
-    <strong>{{'Priority: ' + item.prio}}</strong>
-    <button class="btn btn-primary" (click)="app.edit(item)">Edit</button>
-    <button class="btn btn-primary">Delete</button>
+<div class="card-container mb-3">
+    <span class="hide">{{item.id}}</span>
+    <h3 class="mb-3">{{item.title}}</h3>
+    <p class="mb-3">{{item.workCategory}}</p>
+    <p class="mb-3">{{item.desc}}</p>
+    <strong class="d-block mb-3">{{'Priority: ' + item.prio}}</strong>
+    <div class="row">
+        <div class="col-6">
+            <button class="btn editBtn w-100" (click)="app.edit(item)">Edit</button>
+        </div>
+        <div class="col-6">
+            <button class="btn delBtn w-100" (click)="app.delete(item)">Delete</button>
+        </div>
+    </div>
 </div>

@@ -1,7 +1,33 @@
+.main-container .formSec{
+    display: flex;
+    justify-content: center;
+}
 .main-container .priority label{
     display: block;
 }
 .main-container .priority .form-check{
     display: inline-block;
     margin-right: 20px;
+}
+.main-container .form-container{
+    width: 400px;
+    padding: 10px;
+}
+.list-container{
+    margin: 12px 0px;
+}
+.addBtn{
+    width: 120px;
+    background-color: #472f87;
+    border-color: #472f87;
+    color: #fff;
+}
+.saveBtn{
+    width: 120px;
+    background-color: #198754;
+    border-color: #198754;
+    color: #fff;
+}
+.list-container .list-head{
+    margin-left: 10px;
 }

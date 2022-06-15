@@ -1,3 +1,17 @@
 .card-container{
     border: 1px solid #ccc;
+    padding :10px;
+}
+.editBtn{
+    border-color: #0d6efd;
+    background-color: #0d6efd;
+    color: #fff;
+}
+.delBtn,.editBtn{
+    padding: 2px;
+}
+.delBtn{
+    background-color: #842029;
+    border-color: #842029;
+    color: #fff;
 }

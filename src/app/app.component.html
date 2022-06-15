@@ -1,60 +1,59 @@
 <div class="main-container">
-  <form class="form-container" #todoForm='ngForm' (ngSubmit)="saveTodoForm(todoForm)">
-    <div class="row">
-      <div class="col-4">
-        <label for="title" class="form-label">Title</label>
-        <input name="title" type="text" class="form-control" id="title" placeholder="Daily Work"
-          [(ngModel)]="todoTitle">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-4">
-        <label for="workCatergory" class="form-label">Work Category</label>
-        <select name="workCategory" class="form-select" [(ngModel)]="todoSelect">
-          <option value="Regular Work">Regular Work</option>
-          <option value="CR Work">CR Work</option>
-          <option value="Priority">Priority</option>
-          <option value="Most Priority">Most Priority</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-4">
-        <label for="desc" class="form-label">Description</label>
-        <textarea name="desc" class="form-control" id="desc" rows="2" [(ngModel)]="todoDesc"></textarea>
-      </div>
-    </div>
-    <div class="row priority">
-      <div class="col-4">
-        <label for="priority" class="form-label">Priority</label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="prio" id="opt1" value="Low" [(ngModel)]="todoOpt1">
-          <label class="form-check-label" for="opt1">
-            Low
-          </label>
+  <div class="formSec">
+      <form class="form-container" #todoForm='ngForm' (ngSubmit)="saveTodoForm(todoForm,isEdit)">
+        <div *ngIf="isEdit" class="hide">
+          <input name="id" type="text" class="form-control" id="id" [(ngModel)]="id">
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="prio" id="opt2" value="Medium" [(ngModel)]="todoOpt2">
-          <label class="form-check-label" for="opt2">
-            Medium
-          </label>
+        <div class="formInput mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input name="title" type="text" class="form-control" id="title" placeholder="Daily Work" [(ngModel)]="todoTitle">
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="prio" id="opt3" value="High" [(ngModel)]="todoOpt3">
-          <label class="form-check-label" for="opt3">
-            High
-          </label>
+        <div class="formInput mb-3">
+          <label for="workCatergory" class="form-label">Work Category</label>
+          <select name="workCategory" class="form-select" [(ngModel)]="todoSelect">
+            <option value="Regular Work">Regular Work</option>
+            <option value="CR Work">CR Work</option>
+            <option value="Priority">Priority</option>
+            <option value="Most Priority">Most Priority</option>
+          </select>
         </div>
-      </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Add</button>
-  </form>
-  <div class="list-container">
-    <div class="row">
-      <div class="col-4" *ngFor="let item of todoList">
-        <app-todo-card [item]="item"></app-todo-card>
-      </div>
-    </div>
-
+        <div class="formInput mb-3">
+          <label for="desc" class="form-label">Description</label>
+          <textarea name="desc" class="form-control" id="desc" rows="2" [(ngModel)]="todoDesc"></textarea>
+        </div>
+        <div class="priority mb-3">
+          <label for="priority" class="form-label">Priority</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="prio" id="opt1" value="Low" [(ngModel)]="todoOpt1">
+            <label class="form-check-label" for="opt1">
+              Low
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="prio" id="opt2" value="Medium" [(ngModel)]="todoOpt2">
+            <label class="form-check-label" for="opt2">
+              Medium
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="prio" id="opt3" value="High" [(ngModel)]="todoOpt3">
+            <label class="form-check-label" for="opt3">
+              High
+            </label>
+          </div>
+        </div>
+        <div class="formInput">
+          <button class="btn addBtn" type="submit" *ngIf="!isEdit">Add</button>
+          <button class="btn saveBtn" type="submit" *ngIf="isEdit">Save</button>
+        </div>
+      </form>
+  </div>
+      <div class="list-container">
+        <h3 class="list-head">TODO Lists</h3>
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4" *ngFor="let item of todoList">
+            <app-todo-card [item]="item"></app-todo-card>
+          </div>
+        </div>
   </div>
 </div>
