@@ -28,7 +28,6 @@ export class AppComponent {
   saveTodoForm(values: NgForm, edit: boolean): void {
 
     if (edit) {
-      console.log(values.value, 'editttttttttt')
       this.todoList.map((ele: any, index: any) => {
         if (ele.id == values.value.id) {
           this.todoList[index].desc = values.value.desc
@@ -37,15 +36,12 @@ export class AppComponent {
           this.todoList[index].workCategory = values.value.workCategory
         }
       })
-      console.log(this.todoList, 'after Edit')
       this.isEdit = false;
       this.clearForm();
     } else {
       var obj = values.value;
       obj.id = Date.now().toString(36) + Math.random().toString(36).substr(2);
-      console.log(obj, 'ooooo')
       this.todoList.push(obj);
-      console.log(this.todoList, 'ooooo')
       this.clearForm();
     }
     localStorage.setItem('list', JSON.stringify(this.todoList))
@@ -61,9 +57,7 @@ export class AppComponent {
   edit(item: any) {
     this.isEdit = true;
     let selectedTask = this.todoList.filter((ele: any) => {
-
       return ele.id == item.id;
-
     })
     this.id = selectedTask[0].id;
     this.todoTitle = selectedTask[0].title;
@@ -72,12 +66,9 @@ export class AppComponent {
     this.todoOpt1 = selectedTask[0].prio == 'Low' ? selectedTask[0].prio : '';
     this.todoOpt2 = selectedTask[0].prio == 'Medium' ? selectedTask[0].prio : '';
     this.todoOpt3 = selectedTask[0].prio == 'High' ? selectedTask[0].prio : '';
-    console.log(selectedTask, 'itemmmmmm')
-
   }
   async delete(item: any) {
     let tempArr: any = [];
-    console.log(item, 'itemmmmmm')
     await Promise.all(this.todoList.map((ele: any) => {
       if (ele.id != item.id) {
         tempArr.push(ele);
@@ -85,6 +76,5 @@ export class AppComponent {
     }))
     this.todoList = tempArr;
     localStorage.setItem('list', JSON.stringify(this.todoList))
-    console.log(this.todoList, 'itemmmmmm')
   }
 }
